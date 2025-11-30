@@ -1,30 +1,57 @@
-# Trading agent
+## Opus - workflow
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+Wallet Connect button (MetaMask / WalletConnect) with smooth animation
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/rsayan570-gmailcoms-projects/v0-pointer-ai-landing-page)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/VQnN9xTx9Wz)
+Portfolio Tracker
 
-## Overview
+total portfolio value
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+token list
 
-## Deployment
+PnL, leverage info
 
-Your project is live at:
+liquidation warnings
 
-**[https://vercel.com/rsayan570-gmailcoms-projects/v0-pointer-ai-landing-page](https://vercel.com/rsayan570-gmailcoms-projects/v0-pointer-ai-landing-page)**
+AI Token Scanner Section
 
-## Build your app
+button: “Scan Market”
 
-Continue building your app on:
+list of top Web3 tokens & digital assets
 
-**[https://v0.app/chat/VQnN9xTx9Wz](https://v0.app/chat/VQnN9xTx9Wz)**
+show score (0–100), risk, liquidity, and reasons
 
-## How It Works
+button: “AI Suggest Trade”
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+AI Trade Proposal Modal
+
+buy/sell recommendation
+
+reasoning + risk score
+
+estimated slippage & liquidation zone
+
+“Generate Signature Request” button
+
+EIP-712 Signature Popup
+
+human-readable intent summary
+
+buttons: Approve / Reject
+
+Copy-Trading Section
+
+list of top traders
+
+their strategy, PnL, and risk score
+
+button: “Mirror Strategy”
+
+Activity / Alerts Panel
+
+trade alerts
+
+liquidation warnings
+
+whale activity
+
+timestamped logs
