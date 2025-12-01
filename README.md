@@ -1,4 +1,4 @@
-## OPUS – AI‑Powered Crypto Trading Dashboard
+## OPUS – AI‑Powered Crypto Trading 
 
 OPUS is a Next.js 15 + React 19 dashboard for AI‑assisted, non‑custodial crypto trading.  
 It focuses on **portfolio visibility**, **AI token scanning**, **AI trade proposals**, **EIP‑712 signing**, and **copy‑trading**, presented in a polished, trading‑terminal‑style UI.
