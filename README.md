@@ -16,7 +16,7 @@ It focuses on **portfolio visibility**, **AI token scanning**, **AI trade propos
 
 ---
 
-## Project Structure
+## Project Structure {</>}
 
 - **`app/`**
   - `layout.tsx` – root layout, fonts, theme provider
