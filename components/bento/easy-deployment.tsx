@@ -102,7 +102,7 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
           }}
         >
           {logLines.map((line, index) => (
-            <p key={index} style={{ margin: 0 }}>
+            <p className="" key={index} style={{ margin: 0 }}>
               {line}
             </p>
           ))}

@@ -439,8 +439,8 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 space-y-4 md:space-y-5 lg:space-y-6 mb-6 md:mb-7 lg:mb-9 max-w-md md:max-w-[500px] lg:max-w-[588px] mt-16 md:mt-[120px] lg:mt-[160px] px-4">
-        <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight font-sans italic text-foreground">
-          Unleash the Power of AI Agents
+        <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight font-sans italic text-rose-300">
+          {"Unleash the Opus of AI Agents"}
         </h1>
         <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-lg mx-auto">
           Accelerate your development workflow with intelligent AI agents that write, review, and optimize your code.

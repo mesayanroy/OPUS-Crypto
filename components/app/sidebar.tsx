@@ -201,7 +201,7 @@ export function AppSidebar({ activeView, onViewChange }: AppSidebarProps) {
       )}
 
       {/* Desktop Sidebar */}
-      <aside className="hidden md:flex w-72 bg-sidebar border-r border-sidebar-border flex-col shrink-0">
+      <aside className="hidden md:flex w-64 lg:w-72 bg-sidebar border-r border-sidebar-border flex-col shrink-0">
         <SidebarContent />
       </aside>
     </>

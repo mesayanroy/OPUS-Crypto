@@ -22,7 +22,7 @@ const ParallelCodingAgents: React.FC<ParallelCodingAgentsProps> = ({ className =
   }
 
   const CheckmarkIcon = () => (
-    <svg
+    <svg className="bg-background"
       width="13.885"
       height="13.885"
       viewBox="0 0 14 14"
@@ -41,7 +41,7 @@ const ParallelCodingAgents: React.FC<ParallelCodingAgentsProps> = ({ className =
   )
 
   const RefreshIcon = () => (
-    <svg
+    <svg className="bg-background"
       width="13.885"
       height="13.885"
       viewBox="0 0 14 14"
@@ -68,7 +68,7 @@ const ParallelCodingAgents: React.FC<ParallelCodingAgentsProps> = ({ className =
   )
 
   const SparklesIcon = () => (
-    <svg
+    <svg className="bg-background"
       width="13.885"
       height="13.885"
       viewBox="0 0 14 14"
@@ -151,7 +151,7 @@ const ParallelCodingAgents: React.FC<ParallelCodingAgentsProps> = ({ className =
         }}
       >
         {agents.map((agent, index) => (
-          <div
+          <div className="text-red-500"
             key={index}
             style={{
               display: "flex",
@@ -199,7 +199,7 @@ const ParallelCodingAgents: React.FC<ParallelCodingAgentsProps> = ({ className =
               </div>
             </div>
             {/* Content container */}
-            <div
+            <div className=""
               style={{
                 display: "flex",
                 flexDirection: "column",

@@ -1,7 +1,8 @@
 "use client"
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react"
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react"
 import type { ConnectedWallet, WalletType, ChainType, Token, TradeOrder, ActivityLog } from "./types"
+import { connectWalletProvider, setupWalletListeners, isWalletInstalled } from "./wallet-providers"
 
 interface Web3ContextType {
   // Wallet State
@@ -30,6 +31,10 @@ interface Web3ContextType {
   // UI State
   showWalletModal: boolean
   setShowWalletModal: (show: boolean) => void
+
+  // Wallet Detection
+  installedWallets: WalletType[]
+  checkWalletInstalled: (type: WalletType) => boolean
 }
 
 const Web3Context = createContext<Web3ContextType | null>(null)
@@ -41,30 +46,60 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   const [orders, setOrders] = useState<TradeOrder[]>([])
   const [activityLog, setActivityLog] = useState<ActivityLog[]>([])
   const [showWalletModal, setShowWalletModal] = useState(false)
+  const [installedWallets, setInstalledWallets] = useState<WalletType[]>([])
+
+  // Detect installed wallets on mount
+  useEffect(() => {
+    const checkWallets = () => {
+      const types: WalletType[] = ["metamask", "coinbase", "phantom", "solflare", "petra", "flow", "walletconnect"]
+      const installed = types.filter((type) => type === "walletconnect" || isWalletInstalled(type))
+      setInstalledWallets(installed)
+    }
+
+    // Check immediately and after a delay (some wallets inject late)
+    checkWallets()
+    const timeout = setTimeout(checkWallets, 1000)
+
+    return () => clearTimeout(timeout)
+  }, [])
+
+  // Setup wallet event listeners
+  useEffect(() => {
+    if (!wallet) return
+
+    const cleanup = setupWalletListeners(
+      (accounts) => {
+        if (accounts.length === 0) {
+          disconnectWallet()
+        } else if (accounts[0] !== wallet.address) {
+          setWallet((prev) => (prev ? { ...prev, address: accounts[0] } : null))
+        }
+      },
+      (chainId) => {
+        const newChainId = Number.parseInt(chainId, 16)
+        setWallet((prev) => (prev ? { ...prev, chainId: newChainId, chain: getChainFromId(newChainId) } : null))
+      },
+      () => {
+        disconnectWallet()
+      },
+    )
+
+    return cleanup
+  }, [wallet])
 
   const connectWallet = useCallback(async (type: WalletType): Promise<boolean> => {
     setIsConnecting(true)
     try {
-      // Simulate wallet connection - in production, use actual wallet SDKs
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      const connectedWallet = await connectWalletProvider(type)
 
-      const mockAddress = generateMockAddress(type)
-      const chain = getDefaultChain(type)
-
-      setWallet({
-        type,
-        address: mockAddress,
-        chain,
-        balance: (Math.random() * 10).toFixed(4),
-        chainId: getChainId(chain),
-      })
-
-      // Load initial portfolio data
-      await loadPortfolioData()
-      await loadActivityLog()
-
-      setShowWalletModal(false)
-      return true
+      if (connectedWallet) {
+        setWallet(connectedWallet)
+        await loadPortfolioData()
+        await loadActivityLog()
+        setShowWalletModal(false)
+        return true
+      }
+      return false
     } catch (error) {
       console.error("[v0] Wallet connection failed:", error)
       return false
@@ -74,24 +109,44 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   }, [])
 
   const disconnectWallet = useCallback(() => {
+    // Disconnect from Phantom if connected
+    if (wallet?.type === "phantom") {
+      const phantom = (window as any).phantom?.solana || (window as any).solana
+      phantom?.disconnect?.()
+    }
+
     setWallet(null)
     setTokens([])
     setOrders([])
     setActivityLog([])
-  }, [])
+  }, [wallet])
 
   const switchChain = useCallback(
     async (chain: ChainType): Promise<boolean> => {
       if (!wallet) return false
 
+      const chainIds: Record<ChainType, string> = {
+        ethereum: "0x1",
+        polygon: "0x89",
+        arbitrum: "0xa4b1",
+        optimism: "0xa",
+        bsc: "0x38",
+        solana: "0x65",
+        flow: "0x2eb",
+        aptos: "0x1",
+      }
+
       try {
-        await new Promise((resolve) => setTimeout(resolve, 500))
-        setWallet({
-          ...wallet,
-          chain,
-          chainId: getChainId(chain),
-        })
-        return true
+        const ethereum = (window as any).ethereum
+        if (ethereum) {
+          await ethereum.request({
+            method: "wallet_switchEthereumChain",
+            params: [{ chainId: chainIds[chain] }],
+          })
+          setWallet((prev) => (prev ? { ...prev, chain, chainId: Number.parseInt(chainIds[chain], 16) } : null))
+          return true
+        }
+        return false
       } catch (error) {
         console.error("[v0] Chain switch failed:", error)
         return false
@@ -101,13 +156,11 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   )
 
   const loadPortfolioData = async () => {
-    // Placeholder: Load from /api/portfolio
     await new Promise((resolve) => setTimeout(resolve, 500))
     setTokens(getMockTokens())
   }
 
   const loadActivityLog = async () => {
-    // Placeholder: Load from /api/activity
     await new Promise((resolve) => setTimeout(resolve, 300))
     setActivityLog(getMockActivityLog())
   }
@@ -128,7 +181,6 @@ export function Web3Provider({ children }: { children: ReactNode }) {
 
       setOrders((prev) => [newOrder, ...prev])
 
-      // Simulate order processing
       setTimeout(() => {
         setOrders((prev) =>
           prev.map((o) =>
@@ -152,6 +204,8 @@ export function Web3Provider({ children }: { children: ReactNode }) {
     [],
   )
 
+  const checkWalletInstalled = useCallback((type: WalletType) => isWalletInstalled(type), [])
+
   const totalValue = tokens.reduce((sum, t) => sum + t.value, 0)
   const totalPnl = tokens.reduce((sum, t) => sum + (t.value * t.change24h) / 100, 0)
 
@@ -173,6 +227,8 @@ export function Web3Provider({ children }: { children: ReactNode }) {
         activityLog,
         showWalletModal,
         setShowWalletModal,
+        installedWallets,
+        checkWalletInstalled,
       }}
     >
       {children}
@@ -189,38 +245,17 @@ export function useWeb3() {
 }
 
 // Helper functions
-function generateMockAddress(type: WalletType): string {
-  const prefix = type === "phantom" || type === "solflare" ? "" : "0x"
-  const length = type === "phantom" || type === "solflare" ? 44 : 40
-  return prefix + Array.from({ length }, () => Math.floor(Math.random() * 16).toString(16)).join("")
-}
-
-function getDefaultChain(type: WalletType): ChainType {
-  switch (type) {
-    case "phantom":
-    case "solflare":
-      return "solana"
-    case "flow":
-      return "flow"
-    case "petra":
-      return "aptos"
-    default:
-      return "ethereum"
+function getChainFromId(chainId: number): ChainType {
+  const chains: Record<number, ChainType> = {
+    1: "ethereum",
+    137: "polygon",
+    42161: "arbitrum",
+    10: "optimism",
+    56: "bsc",
+    101: "solana",
+    747: "flow",
   }
-}
-
-function getChainId(chain: ChainType): number {
-  const chainIds: Record<ChainType, number> = {
-    ethereum: 1,
-    polygon: 137,
-    arbitrum: 42161,
-    optimism: 10,
-    bsc: 56,
-    solana: 101,
-    flow: 747,
-    aptos: 1,
-  }
-  return chainIds[chain]
+  return chains[chainId] || "ethereum"
 }
 
 function getMockTokens(): Token[] {

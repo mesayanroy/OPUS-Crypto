@@ -44,7 +44,7 @@ const AiCodeReviews: React.FC = () => {
         }}
       >
         <div
-          className="border rounded-lg bg-card"
+          className="border rounded-lg bg-background text-ring"
           style={{
             padding: "7.355px 8.826px",
             height: "100%",
@@ -64,7 +64,7 @@ const AiCodeReviews: React.FC = () => {
               margin: 0,
             }}
           >
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>switch (type) {"{"}</p>
+            <p className="bg-muted" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>switch (type) {"{"}</p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> case 'success':</p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> return {"{"}</p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
@@ -111,7 +111,7 @@ const AiCodeReviews: React.FC = () => {
         }}
       >
         <div
-          className="bg-card border border-border text-red-400"
+          className="bg-card border border-border text-red-600"
           style={{
             padding: "9.488px",
             height: "100%",
@@ -159,17 +159,17 @@ const AiCodeReviews: React.FC = () => {
             }}
           >
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>switch (type) {"{"}</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> case 'success':</p>
+            <p className="text-primary italic" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> case 'success':</p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> return {"{"}</p>
-            <p className="text-green-400" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
+            <p className="italic text-green-600 bg-muted" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
               {"          border: theme === 'dark' ? 'border-[rgba(34,197,94,0.4)]' : 'border-green-200',"}
             </p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> icon: (</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
+            <p className="text-red-600" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
               {'            <svg className={\'baseIconClasses\'} fill="none" viewBox="0 0 14 14">'}
             </p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}> &lt;path</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
+            <p className="text-red-600" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>
               {'                d="M3.85156 7.875L6.47656 10.5L10.8516 3.5"'}
             </p>
             <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400 }}>{'                stroke="#22C55E"'}</p>
@@ -210,7 +210,7 @@ const AiCodeReviews: React.FC = () => {
                 "0px 26.093px 7.116px rgba(0, 0, 0, 0), 0px 16.605px 6.326px rgba(0, 0, 0, 0.01), 0px 9.488px 5.535px rgba(0, 0, 0, 0.05), 0px 3.953px 3.953px rgba(0, 0, 0, 0.09), 0px 0.791px 2.372px rgba(0, 0, 0, 0.1)",
             }}
           >
-            <span
+            <span className="italic text-card-foreground bg-muted"
               style={{
                 fontFamily: "'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
                 fontWeight: 500,
@@ -218,7 +218,7 @@ const AiCodeReviews: React.FC = () => {
             >
               Apply changes
             </span>
-            <span
+            <span className="text-chart-1"
               style={{
                 fontFamily: "'SF Pro', -apple-system, BlinkMacSystemFont, system-ui, sans-serif",
                 fontWeight: 500,
