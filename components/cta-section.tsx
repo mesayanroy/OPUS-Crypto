@@ -35,7 +35,14 @@ export function CTASection() {
               />
             </g>
             <ellipse cx="694" cy="-91.5385" rx="670.109" ry="354.908" fill="url(#paint2_linear_182_1049)" />
-            <ellipse className="" cx="694" cy="-93.0414" rx="670.109" ry="354.908" fill="url(#paint3_linear_182_1049)" />
+            <ellipse
+              className=""
+              cx="694"
+              cy="-93.0414"
+              rx="670.109"
+              ry="354.908"
+              fill="url(#paint3_linear_182_1049)"
+            />
           </g>
           <defs>
             <filter
@@ -101,3 +108,25 @@ export function CTASection() {
           </defs>
         </svg>
       </div>
+
+      <div className="relative z-10 flex flex-col items-center gap-6 md:gap-8 max-w-4xl text-center">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-balance">Ready to Transform Your Trading?</h2>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+          Join thousands of traders using AI-powered insights to maximize returns and minimize risk.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+          <Link href="/app">
+            <Button size="lg" className="w-full sm:w-auto">
+              Launch App
+            </Button>
+          </Link>
+          <Link href="/#features">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent">
+              Learn More
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
+  )
+}

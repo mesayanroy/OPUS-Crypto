@@ -35,7 +35,7 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 onClick={(e) => handleScroll(e, item.href)}
-                className="text-[#888888] hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors overline"
+                className="text-[#888888] hover:text-foreground px-4 py-2 rounded-full font-medium transition-colors overline text-rose-300"
               >
                 {item.name}
               </Link>
