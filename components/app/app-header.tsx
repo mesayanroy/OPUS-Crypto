@@ -51,10 +51,10 @@ export function AppHeader() {
       {mobileMenuOpen && (
         <div className="md:hidden border-t border-border bg-background animate-in slide-in-from-top-2 duration-200">
           <nav className="p-4 space-y-1">
-            <MobileNavItem icon={LayoutDashboard} label="Dashboard" onClick={() => setMobileMenuOpen(false)} />
-            <MobileNavItem icon={Wallet} label="Portfolio" onClick={() => setMobileMenuOpen(false)} />
-            <MobileNavItem icon={TrendingUp} label="Trading" onClick={() => setMobileMenuOpen(false)} />
-            <MobileNavItem icon={Activity} label="Activity" onClick={() => setMobileMenuOpen(false)} />
+            <MobileNavItem icon={LayoutDashboard} label="Dashboard" />
+            <MobileNavItem icon={Wallet} label="Portfolio" />
+            <MobileNavItem icon={TrendingUp} label="Trading" />
+            <MobileNavItem icon={Activity} label="Activity" />
           </nav>
         </div>
       )}
@@ -65,17 +65,12 @@ export function AppHeader() {
 function MobileNavItem({
   icon: Icon,
   label,
-  onClick,
 }: {
   icon: typeof LayoutDashboard
   label: string
-  onClick: () => void
 }) {
   return (
-    <button
-      onClick={onClick}
-      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
-    >
+    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors">
       <Icon className="w-5 h-5" />
       <span className="font-medium">{label}</span>
     </button>

@@ -88,7 +88,7 @@ const DeploymentEasy: React.FC<DeploymentEasyProps> = ({ width = "100%", height 
         />
 
         {/* Log text */}
-        <div
+        <div className="bg-muted"
           style={{
             position: "relative",
             padding: "8px",
