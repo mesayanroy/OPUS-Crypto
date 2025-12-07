@@ -2,10 +2,6 @@
 
 An intelligent, AI-powered cryptocurrency trading platform built with Next.js, featuring real-time market analysis, automated trading insights, multi-chain wallet support, and copy trading capabilities.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-
 ## 🎯 Overview
 
 OPUS AI Crypto Trading Platform is a comprehensive Web3 application that combines AI-powered market analysis with seamless multi-chain trading capabilities. The platform features:
