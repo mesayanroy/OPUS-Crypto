@@ -1,5 +1,5 @@
 # OPUS – Make your own trading agents deploy it on your system and start ur AI - crypto trading journey.
-## Complete API & Architecture Documentation
+## Architecture & Documentation
 
 **Version:** 1.0.0  
 **Last Updated:** December 12, 2025  
