@@ -35,7 +35,14 @@ export function CTASection() {
               />
             </g>
             <ellipse cx="694" cy="-91.5385" rx="670.109" ry="354.908" fill="url(#paint2_linear_182_1049)" />
-            <ellipse className="" cx="694" cy="-93.0414" rx="670.109" ry="354.908" fill="url(#paint3_linear_182_1049)" />
+            <ellipse
+              className=""
+              cx="694"
+              cy="-93.0414"
+              rx="670.109"
+              ry="354.908"
+              fill="url(#paint3_linear_182_1049)"
+            />
           </g>
           <defs>
             <filter
@@ -101,24 +108,24 @@ export function CTASection() {
           </defs>
         </svg>
       </div>
-      <div className="relative z-10 flex flex-col justify-start items-center gap-9 max-w-4xl mx-auto">
-        <div className="flex flex-col justify-start items-center gap-4 text-center font-serif">
-          <h2 className="text-foreground text-4xl md:text-5xl lg:text-[68px] font-semibold leading-tight md:leading-tight lg:leading-[76px] break-words max-w-[435px] italic">
-            Coding made effortless
-          </h2>
-          <p className="text-muted-foreground text-sm md:text-base font-medium leading-[18.20px] md:leading-relaxed break-words max-w-2xl">
-            Hear how developers ship products faster, collaborate seamlessly, and build with confidence using Pointer's
-            powerful AI tools
-          </p>
+
+      <div className="relative z-10 flex flex-col items-center gap-6 md:gap-8 max-w-4xl text-center">
+        <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-balance">Ready to Transform Your Trading?</h2>
+        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+          Join thousands of traders using AI-powered insights to maximize returns and minimize risk.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+          <Link href="/app">
+            <Button size="lg" className="w-full sm:w-auto">
+              Launch App
+            </Button>
+          </Link>
+          <Link href="/#features">
+            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-transparent">
+              Learn More
+            </Button>
+          </Link>
         </div>
-        <Link href="https://vercel.com/home" target="_blank" rel="noopener noreferrer">
-          <Button
-            className="px-[30px] py-2 bg-secondary text-secondary-foreground text-base font-medium leading-6 rounded-[99px] shadow-[0px_0px_0px_4px_rgba(255,255,255,0.13)] hover:bg-secondary/90 transition-all duration-200 font-mono"
-            size="lg"
-          >
-            {"Launch App"}
-          </Button>
-        </Link>
       </div>
     </section>
   )

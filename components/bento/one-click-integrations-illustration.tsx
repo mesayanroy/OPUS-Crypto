@@ -1,10 +1,42 @@
+"use client"
+
 import type React from "react"
+import { useState, useEffect } from "react"
 
 interface OneClickIntegrationsIllustrationProps {
   className?: string
 }
 
 const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustrationProps> = ({ className = "" }) => {
+  const [isCardHovered, setIsCardHovered] = useState(false)
+  const [shiningBox, setShiningBox] = useState<number | null>(null)
+
+  useEffect(() => {
+    // Initial delay of 3 seconds before first hover
+    const initialTimeout = setTimeout(() => {
+      setIsCardHovered(true)
+    }, 3000)
+
+    return () => {
+      clearTimeout(initialTimeout)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isCardHovered) return
+
+    // Cycle through boxes to make them shine
+    let currentIndex = 0
+    const boxesWithLogos = [3, 15, 23, 27, 35] // Positions of boxes with logos
+
+    const shineInterval = setInterval(() => {
+      setShiningBox(boxesWithLogos[currentIndex])
+      currentIndex = (currentIndex + 1) % boxesWithLogos.length
+    }, 800) // Change every 800ms
+
+    return () => clearInterval(shineInterval)
+  }, [isCardHovered])
+
   const themeVars = {
     "--oci-primary-color": "hsl(var(--primary))",
     "--oci-background-color": "hsl(var(--background))",
@@ -20,18 +52,27 @@ const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustratio
   const LogoBox: React.FC<{
     logoSvg?: React.ReactNode
     isGradientBg?: boolean
-  }> = ({ logoSvg, isGradientBg }) => {
+    index?: number
+    isShining?: boolean
+  }> = ({ logoSvg, isGradientBg, index, isShining }) => {
     const boxStyle: React.CSSProperties = {
       width: "60px",
       height: "60px",
       position: "relative",
       borderRadius: "9px",
-      border: `1px ${themeVars["--oci-border-color"]} solid`,
+      border: isShining
+        ? `2px solid var(--oci-primary-color)`
+        : `1px ${themeVars["--oci-border-color"]} solid`,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
       overflow: "hidden",
       flexShrink: 0,
+      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      transform: isShining ? "scale(1.1)" : "scale(1)",
+      boxShadow: isShining
+        ? `0 0 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--oci-primary-color)`
+        : `0px 1px 2px ${themeVars["--oci-shadow-color"]}`,
     }
 
     const innerContentStyle: React.CSSProperties = {
@@ -42,16 +83,37 @@ const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustratio
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+      transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      filter: isShining ? "brightness(1.3)" : "brightness(1)",
     }
 
     if (isGradientBg) {
-      boxStyle.background = `linear-gradient(180deg, ${themeVars["--oci-gradient-light-gray-start"]} 0%, ${themeVars["--oci-gradient-light-gray-end"]} 100%)`
-      boxStyle.boxShadow = `0px 1px 2px ${themeVars["--oci-shadow-color"]}`
+      boxStyle.background = isShining
+        ? `linear-gradient(180deg, var(--oci-primary-color) 0%, ${themeVars["--oci-gradient-light-gray-start"]} 100%)`
+        : `linear-gradient(180deg, ${themeVars["--oci-gradient-light-gray-start"]} 0%, ${themeVars["--oci-gradient-light-gray-end"]} 100%)`
       boxStyle.backdropFilter = "blur(18px)"
       boxStyle.padding = "6px 8px"
     }
 
-    return <div className="bg-destructive" style={boxStyle}>{logoSvg && <div style={innerContentStyle}>{logoSvg}</div>}</div>
+    return (
+      <div className="bg-destructive" style={boxStyle}>
+        {logoSvg && <div style={innerContentStyle}>{logoSvg}</div>}
+        {/* Shine overlay effect */}
+        {isShining && (
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "-100%",
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent)",
+              animation: "shine 0.6s ease-out",
+            }}
+          />
+        )}
+      </div>
+    )
   }
 
   // SVG content for logos, with fill/stroke updated to use CSS variables
@@ -230,26 +292,141 @@ const OneClickIntegrationsIllustration: React.FC<OneClickIntegrationsIllustratio
           left: "0.34px",
           top: "43.42px",
           position: "absolute",
-          backdropFilter: "blur(7.91px)",
+          backdropFilter: isCardHovered ? "blur(14px)" : "blur(7.91px)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
           gap: "16px",
+          transform: isCardHovered ? "translateY(-10px) scale(1.03)" : "translateY(0) scale(1)",
+          transition: "all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          border: isCardHovered ? "2px solid var(--oci-primary-color)" : "none",
+          borderRadius: "12px",
+          zIndex: isCardHovered ? 15 : 1,
+          boxShadow: isCardHovered
+            ? "0px 25px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--oci-primary-color) inset, 0 0 40px rgba(0, 0, 0, 0.15)"
+            : "0px 4px 12px rgba(0, 0, 0, 0.05)",
+          overflow: "hidden",
         }}
       >
-        {/* Render rows of logo boxes */}
-        {Array.from({ length: 4 }).map((_, rowIndex) => (
-          <div
-            key={rowIndex}
-            style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: "16px" }}
-          >
-            {gridItems.slice(rowIndex * 10, (rowIndex + 1) * 10).map((item, colIndex) => (
-              <LogoBox key={colIndex} {...item} />
-            ))}
-          </div>
-        ))}
+        {/* Scrolling container - Horizontal scroll from right to left */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "calc(200% + 160px)", // Double width + gap for seamless loop
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: "16px",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+            paddingTop: "0px",
+            animation: isCardHovered ? "scrollHorizontal 25s linear infinite" : "none",
+            transition: "animation 0.5s ease",
+            willChange: "transform",
+          }}
+        >
+          {/* First instance of rows */}
+          {Array.from({ length: 4 }).map((_, rowIndex) => (
+            <div
+              key={`first-${rowIndex}`}
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: "16px",
+                width: "377px",
+              }}
+            >
+              {gridItems.slice(rowIndex * 10, (rowIndex + 1) * 10).map((item, colIndex) => {
+                const absoluteIndex = rowIndex * 10 + colIndex
+                return (
+                  <LogoBox
+                    key={`first-${colIndex}`}
+                    {...item}
+                    index={absoluteIndex}
+                    isShining={shiningBox === absoluteIndex}
+                  />
+                )
+              })}
+            </div>
+          ))}
+
+          {/* Duplicate instance for seamless loop */}
+          {Array.from({ length: 4 }).map((_, rowIndex) => (
+            <div
+              key={`second-${rowIndex}`}
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: "16px",
+                width: "377px",
+              }}
+            >
+              {gridItems.slice(rowIndex * 10, (rowIndex + 1) * 10).map((item, colIndex) => {
+                const absoluteIndex = rowIndex * 10 + colIndex
+                return (
+                  <LogoBox
+                    key={`second-${colIndex}`}
+                    {...item}
+                    index={absoluteIndex}
+                    isShining={shiningBox === absoluteIndex}
+                  />
+                )
+              })}
+            </div>
+          ))}
+        </div>
+
+        {/* Gradient masks for fade effect at left and right */}
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            bottom: 0,
+            width: "60px",
+            background: "linear-gradient(to right, hsl(var(--background)), transparent)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            right: 0,
+            top: 0,
+            bottom: 0,
+            width: "60px",
+            background: "linear-gradient(to left, hsl(var(--background)), transparent)",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
       </div>
+
+      <style jsx>{`
+        @keyframes scrollHorizontal {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(calc(-50% - 80px));
+          }
+        }
+
+        @keyframes shine {
+          0% {
+            left: -100%;
+          }
+          100% {
+            left: 100%;
+          }
+        }
+      `}</style>
     </div>
   )
 }

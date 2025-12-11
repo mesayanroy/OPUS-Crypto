@@ -19,7 +19,7 @@ export function LargeTestimonial() {
                 />
                 <div className="flex flex-col justify-start items-start">
                   <div className="text-foreground text-base font-medium leading-6">Sayan Roy </div>
-                  <div className="text-muted-foreground text-sm font-normal leading-6">{"CEO, Orpus"}</div>
+                  <div className="text-muted-foreground text-sm font-normal leading-6">{"CEO, Opus"}</div>
                 </div>
               </div>
             </div>

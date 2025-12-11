@@ -1,8 +1,22 @@
 "use client"
 
 import type React from "react"
+import { useState, useEffect } from "react"
 
 const RealtimeCodingPreviews: React.FC = () => {
+  const [isCardHovered, setIsCardHovered] = useState(false)
+
+  useEffect(() => {
+    // Initial delay of 3 seconds before first hover
+    const initialTimeout = setTimeout(() => {
+      setIsCardHovered(true)
+    }, 3000)
+
+    return () => {
+      clearTimeout(initialTimeout)
+    }
+  }, [])
+
   const themeVars = {
     "--realtime-primary-color": "hsl(var(--primary))",
     "--realtime-background-editor": "hsl(var(--background) / 0.8)", // Tinted gray from background
@@ -36,19 +50,30 @@ const RealtimeCodingPreviews: React.FC = () => {
           position: "absolute",
           top: "46px",
           left: "50%",
-          transform: "translateX(-50%)",
+          transform: isCardHovered
+            ? "translateX(-50%) translateY(-10px) scale(1.03)"
+            : "translateX(-50%) translateY(0) scale(1)",
           width: "350px",
           height: "221px",
-          background: "linear-gradient(180deg, var(--realtime-background-editor) 0%, transparent 100%)",
-          backdropFilter: "blur(7.907px)",
+          background: isCardHovered
+            ? "linear-gradient(180deg, var(--realtime-background-editor) 0%, var(--realtime-background-editor) 100%)"
+            : "linear-gradient(180deg, var(--realtime-background-editor) 0%, transparent 100%)",
+          backdropFilter: isCardHovered ? "blur(14px)" : "blur(7.907px)",
           borderRadius: "9.488px",
-          border: "1px solid var(--realtime-border-main)",
+          border: isCardHovered
+            ? "2px solid var(--realtime-primary-color)"
+            : "1px solid var(--realtime-border-main)",
           overflow: "hidden",
           boxSizing: "border-box",
+          zIndex: isCardHovered ? 15 : 1,
+          transition: "all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1)",
+          boxShadow: isCardHovered
+            ? "0px 25px 50px rgba(0, 0, 0, 0.2), 0 0 0 1px var(--realtime-primary-color) inset, 0 0 40px rgba(0, 0, 0, 0.15)"
+            : "0px 4px 12px rgba(0, 0, 0, 0.05)",
         }}
         data-name="code-editor"
       >
-        <div
+        <div className="text-red-500 bg-background"
           style={{
             padding: "9.488px 9.492px",
             height: "100%",
@@ -61,56 +86,139 @@ const RealtimeCodingPreviews: React.FC = () => {
             justifyContent: "flex-start",
           }}
         >
+          {/* Scrolling Code Container - Movie Credits Style */}
           <div
             style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "calc(200% + 100px)", // Double height for seamless loop
+              display: "flex",
+              flexDirection: "column",
+              animation: "scrollCredits 15s linear infinite",
               fontFamily: "'Geist Mono', 'SF Mono', Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
               fontSize: "10.279px",
               lineHeight: "15.814px",
               letterSpacing: "-0.3163px",
               color: "var(--realtime-text-editor)",
-              width: "545.453px",
-              maxWidth: "100%",
-              position: "relative",
-              margin: 0,
-              flexGrow: 1,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
+              width: "100%",
+              paddingLeft: "9.492px",
+              paddingRight: "9.492px",
             }}
           >
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>switch (type) {"{"}</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> case 'success':</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> return {"{"}</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              border: theme === 'dark' ? 'border-[rgba(34,197,94,0.4)]' : 'border-green-200',
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> icon: (</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              &lt;svg className={"{baseIconClasses}"} fill="none" viewBox="0 0 14 14"&gt;
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;path</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              d="M3.85156 7.875L6.47656 10.5L10.8516 3.5"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              stroke="var(--realtime-primary-color)"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              strokeLinecap="round"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
-              {" "}
-              strokeLinejoin="round"
-            </p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> strokeWidth="1.5"</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> /&gt;</p>
-            <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;/svg&gt;</p>
+            {/* First instance of code */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+              }}
+            >
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>switch (type) {"{"}</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> case 'success':</p>
+              <p className="italic bg-muted text-primary" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> return {"{"}</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                border: theme === 'dark' ? 'border-[rgba(34,197,94,0.4)]' : 'border-green-200',
+              </p>
+              <p className="italic bg-muted text-foreground" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> icon: (</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                &lt;svg className={"{baseIconClasses}"} fill="none" viewBox="0 0 14 14"&gt;
+              </p>
+              <p className="italic bg-muted text-yellow-300" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;path</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                d="M3.85156 7.875L6.47656 10.5L10.8516 3.5"
+              </p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                stroke="var(--realtime-primary-color)"
+              </p>
+              <p className="text-red-500" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                strokeLinecap="round"
+              </p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                strokeLinejoin="round"
+              </p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> strokeWidth="1.5"</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> /&gt;</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;/svg&gt;</p>
+            </div>
+
+            {/* Duplicate instance for seamless loop */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+              }}
+            >
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>switch (type) {"{"}</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> case 'success':</p>
+              <p className="italic bg-muted text-primary" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> return {"{"}</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                border: theme === 'dark' ? 'border-[rgba(34,197,94,0.4)]' : 'border-green-200',
+              </p>
+              <p className="italic bg-muted text-foreground" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> icon: (</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                &lt;svg className={"{baseIconClasses}"} fill="none" viewBox="0 0 14 14"&gt;
+              </p>
+              <p className="italic bg-muted text-yellow-300" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;path</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                d="M3.85156 7.875L6.47656 10.5L10.8516 3.5"
+              </p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                stroke="var(--realtime-primary-color)"
+              </p>
+              <p className="text-red-500" style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                strokeLinecap="round"
+              </p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}>
+                {" "}
+                strokeLinejoin="round"
+              </p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> strokeWidth="1.5"</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> /&gt;</p>
+              <p style={{ margin: 0, whiteSpace: "pre-wrap", fontWeight: 400, display: "block" }}> &lt;/svg&gt;</p>
+            </div>
           </div>
+
+          {/* Gradient masks for fade effect at top and bottom */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              height: "40px",
+              background: "linear-gradient(to bottom, hsl(var(--background)), transparent)",
+              pointerEvents: "none",
+              zIndex: 2,
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "40px",
+              background: "linear-gradient(to top, hsl(var(--background)), transparent)",
+              pointerEvents: "none",
+              zIndex: 2,
+            }}
+          />
         </div>
       </div>
 
@@ -133,7 +241,7 @@ const RealtimeCodingPreviews: React.FC = () => {
         }}
         data-name="preview-panel"
       >
-        <div className="text-destructive-foreground"
+        <div className="text-foreground"
           style={{
             padding: "9.488px 9.492px",
             height: "100%",
@@ -248,6 +356,15 @@ const RealtimeCodingPreviews: React.FC = () => {
         @keyframes pulse {
           0%, 100% { opacity: 0.4; }
           50% { opacity: 1; }
+        }
+
+        @keyframes scrollCredits {
+          0% {
+            transform: translateY(0);
+          }
+          100% {
+            transform: translateY(calc(-50% - 50px));
+          }
         }
       `}</style>
     </div>

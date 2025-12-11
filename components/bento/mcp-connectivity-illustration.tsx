@@ -47,7 +47,7 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
           }}
         >
           {/* Search Header */}
-          <div
+          <div className="bg-muted"
             style={{
               display: "flex",
               alignItems: "center",
@@ -83,7 +83,7 @@ const McpConnectivityIllustration: React.FC<McpConnectivityIllustrationProps> = 
           </div>
           {/* Integration List */}
           {integrations.map((integration, index) => (
-            <div
+            <div className="bg-popover"
               key={integration.name}
               style={{
                 display: "flex",

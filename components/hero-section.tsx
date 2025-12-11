@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { Button } from "@/components/ui/button"
 import { Header } from "./header"
@@ -439,9 +441,143 @@ export function HeroSection() {
       </div>
 
       <div className="relative z-10 space-y-4 md:space-y-5 lg:space-y-6 mb-6 md:mb-7 lg:mb-9 max-w-md md:max-w-[500px] lg:max-w-[588px] mt-16 md:mt-[120px] lg:mt-[160px] px-4">
-        <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight font-sans italic text-foreground">
-          Unleash the Power of AI Agents
+        <h1 className="text-3xl md:text-4xl lg:text-6xl font-semibold leading-tight font-sans italic text-rose-300">
+          <span>Unleash the </span>
+          <span className="relative inline-block">
+            <span
+              className="relative inline-block"
+              style={{
+                animation: "elegantInfinity 3s ease-in-out infinite",
+                textShadow: "0 0 30px rgba(251, 113, 133, 0.6), 0 0 60px rgba(251, 113, 133, 0.4), 0 0 90px rgba(251, 113, 133, 0.2)",
+                filter: "brightness(1.2)",
+                transformOrigin: "center",
+                fontFamily: "serif",
+                lineHeight: "1",
+              }}
+            >
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 100 50"
+                style={{
+                  display: "inline-block",
+                  verticalAlign: "middle",
+                  width: "1.2em",
+                  height: "0.6em",
+                }}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M 20 25 Q 20 10, 35 10 Q 50 10, 50 25 Q 50 40, 35 40 Q 20 40, 20 25"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    animation: "infinityPath 3s ease-in-out infinite",
+                  }}
+                />
+                <path
+                  d="M 80 25 Q 80 10, 65 10 Q 50 10, 50 25 Q 50 40, 65 40 Q 80 40, 80 25"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{
+                    animation: "infinityPath 3s ease-in-out infinite 0.15s",
+                  }}
+                />
+              </svg>
+              {/* Shine overlay */}
+              <span
+                className="absolute inset-0 pointer-events-none overflow-hidden"
+                style={{
+                  background: "linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.6) 50%, transparent 70%)",
+                  animation: "shineSweep 2s ease-in-out infinite",
+                  borderRadius: "50%",
+                  top: "-20%",
+                  left: "-20%",
+                  right: "-20%",
+                  bottom: "-20%",
+                }}
+              />
+              {/* Glow ring */}
+              <span
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  borderRadius: "50%",
+                  boxShadow: "0 0 25px rgba(251, 113, 133, 0.6), inset 0 0 25px rgba(251, 113, 133, 0.4)",
+                  animation: "glowPulse 2s ease-in-out infinite",
+                  top: "-30%",
+                  left: "-30%",
+                  right: "-30%",
+                  bottom: "-30%",
+                }}
+              />
+            </span>
+            <span>pus</span>
+          </span>
+          <span> of AI Agents</span>
         </h1>
+
+        <style jsx>{`
+          @keyframes elegantInfinity {
+            0%, 100% {
+              transform: scale(1) rotate(0deg);
+              opacity: 1;
+            }
+            25% {
+              transform: scale(1.15) rotate(-3deg);
+              opacity: 0.95;
+            }
+            50% {
+              transform: scale(1.1) rotate(3deg);
+              opacity: 1;
+            }
+            75% {
+              transform: scale(1.15) rotate(-2deg);
+              opacity: 0.95;
+            }
+          }
+
+          @keyframes infinityPath {
+            0%, 100% {
+              stroke-dasharray: 100, 100;
+              stroke-dashoffset: 0;
+            }
+            50% {
+              stroke-dasharray: 100, 100;
+              stroke-dashoffset: -50;
+            }
+          }
+
+          @keyframes shineSweep {
+            0% {
+              transform: translateX(-100%) translateY(-100%) rotate(45deg);
+              opacity: 0;
+            }
+            50% {
+              opacity: 1;
+            }
+            100% {
+              transform: translateX(100%) translateY(100%) rotate(45deg);
+              opacity: 0;
+            }
+          }
+
+          @keyframes glowPulse {
+            0%, 100% {
+              opacity: 0.6;
+              transform: scale(1);
+            }
+            50% {
+              opacity: 1;
+              transform: scale(1.15);
+            }
+          }
+        `}</style>
         <p className="text-muted-foreground text-base md:text-base lg:text-lg font-medium leading-relaxed max-w-lg mx-auto">
           Accelerate your development workflow with intelligent AI agents that write, review, and optimize your code.
         </p>
