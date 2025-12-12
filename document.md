@@ -97,7 +97,7 @@
 
 ## Architecture & Framework
 
-### System Architecture
+### System Architecture ->
 
 ```
 ┌─────────────────────────────────────────────────────┐
