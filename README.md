@@ -1,6 +1,6 @@
 # OPUS - AI Crypto Trading Platform
 
-Create your own AI Agentsthat will do the trade and maintain your trading portfolio , ask them them to do swaps, DEX , CEX , Sel , Buy or liquidate assests on your will with easy cash in and cash out. Featuring real-time market analysis, automated trading insights, multi-chain wallet support, and copy trading capabilities. More Features are on the way untill that till our beta launch built your own ai agents and make them do the trades and yout u can chill drinking a coconut water maybe.
+Create your own AI Agents that will do the trade and maintain your trading portfolio , ask them them to do swaps, DEX , CEX , Sel , Buy or liquidate assests on your will with easy cash in and cash out. Featuring real-time market analysis, automated trading insights, multi-chain wallet support, and copy trading capabilities. More Features are on the way untill that till our beta launch built your own ai agents and make them do the trades and yout u can chill drinking a coconut water maybe.
 
 <img width="1554" height="902" alt="image" src="https://github.com/user-attachments/assets/2dc071a7-c13b-4d9b-b10b-46764f69adbf" />
 
