@@ -20,7 +20,7 @@ OPUS AI Crypto Trading Platform is a comprehensive Web3 application that combine
 ## 🚀 Features
 
 ### AI-Powered Features
-- **Market Scanning**: AI algorithms analyze market conditions to identify promising tokens
+- **Market Scanning**: AI algorithms analyze market conditions to stratagies identify promising tokens
 - **Trade Recommendations**: Get AI-generated buy/sell suggestions with detailed reasoning
 - **Risk Assessment**: Automated risk scoring for every trading opportunity
 - **Technical Analysis**: Real-time RSI, support/resistance level analysis, and volume indicators
