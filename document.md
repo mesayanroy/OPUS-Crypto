@@ -138,7 +138,7 @@
         └───────────────────────────┘
 ```
 
-### Project Directory Structure
+### Project Directory Structure ->
 
 ```
 OPUS-ai-crypto-Trade/
