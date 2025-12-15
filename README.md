@@ -70,7 +70,7 @@ Before you begin, ensure you have the following installed:
 4. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📁 Project Structure
+## 📁 Project Structure ->
 
 ```
 OPUS-ai-crypto-Trade--1/
