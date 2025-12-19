@@ -1,10 +1,11 @@
-import { DashboardHeader } from "@/components/dashboard/dashboard-header"
-import { PortfolioTracker } from "@/components/dashboard/portfolio-tracker"
-import { AITokenScanner } from "@/components/dashboard/ai-token-scanner"
-import { CopyTradingSection } from "@/components/dashboard/copy-trading-section"
-import { ActivityPanel } from "@/components/dashboard/activity-panel"
+import { WalletBoundDashboard } from "@/components/dashboard/wallet-bound-dashboard"
+import { AptosWalletConnector } from "@/components/web3/aptos-wallet-connector"
+import { AIAgentBuilder } from "@/components/web3/ai-agent-builder"
+import { useAptos } from "@/lib/web3/aptos-context"
 
-export default function DashboardPage() {
+function DashboardContent() {
+  const { user } = useAptos()
+
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
       {/* Background gradient effect */}
@@ -12,22 +13,36 @@ export default function DashboardPage() {
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-primary/5 blur-[120px] rounded-full" />
 
       <div className="relative z-10">
-        <DashboardHeader />
+        {/* Header */}
+        <header className="border-b border-border/40 backdrop-blur-xl bg-background/80">
+          <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+            <h1 className="text-2xl font-bold">OPUS Trading</h1>
+            <AptosWalletConnector />
+          </div>
+        </header>
 
         <main className="max-w-[1400px] mx-auto px-4 md:px-6 py-6 space-y-6">
-          {/* Top Row: Portfolio & AI Scanner */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <PortfolioTracker />
-            <AITokenScanner />
-          </div>
+          {user ? (
+            <>
+              {/* Agent Builder */}
+              <div>
+                <AIAgentBuilder />
+              </div>
 
-          {/* Bottom Row: Copy Trading & Activity */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <CopyTradingSection />
-            <ActivityPanel />
-          </div>
+              {/* Dashboard */}
+              <WalletBoundDashboard />
+            </>
+          ) : (
+            <div className="text-center py-12 text-muted-foreground">
+              <p className="mb-4">Connect your Aptos wallet to view your trading dashboard</p>
+            </div>
+          )}
         </main>
       </div>
     </div>
   )
+}
+
+export default function DashboardPage() {
+  return <DashboardContent />
 }

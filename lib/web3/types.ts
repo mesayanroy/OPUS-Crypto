@@ -1,8 +1,8 @@
-// Web3 Types for Multi-Chain Trading Platform
+// Web3 Types for OPUS - Aptos-Focused Trading Platform
 
-export type WalletType = "metamask" | "walletconnect" | "phantom" | "coinbase" | "flow" | "petra" | "solflare"
+export type WalletType = "petra" | "martian" | "pontem" | "hippo"
 
-export type ChainType = "ethereum" | "polygon" | "arbitrum" | "optimism" | "bsc" | "solana" | "flow" | "aptos"
+export type ChainType = "aptos" // Aptos only
 
 export interface WalletInfo {
   type: WalletType
@@ -14,10 +14,10 @@ export interface WalletInfo {
 
 export interface ConnectedWallet {
   type: WalletType
-  address: string
-  chain: ChainType
-  balance: string
-  chainId: number
+  address: string // Aptos wallet address (0x...)
+  chain: "aptos"
+  balance: string // Native APT balance in octas
+  chainId: "1" // Mainnet
 }
 
 export interface Token {
@@ -35,18 +35,19 @@ export interface Token {
 
 export interface TradeOrder {
   id: string
-  type: "buy" | "sell"
-  token: Token
-  amount: number
+  type: "buy" | "sell" | "swap"
+  tokenIn: string // Aptos token type
+  tokenOut: string // Aptos token type
+  amountIn: number
+  amountOut: number
   price: number
-  total: number
+  slippage: number
+  dex: "liquidswap" | "econia" | "panora"
   status: "pending" | "confirmed" | "failed" | "cancelled"
   timestamp: number
   txHash?: string
-  chain: ChainType
-  isCrossChain: boolean
-  sourceChain?: ChainType
-  targetChain?: ChainType
+  gasFee?: number
+  requiresSignature: true // Always require signature on Aptos
 }
 
 export interface EIP712TypedData {

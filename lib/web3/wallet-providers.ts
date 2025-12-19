@@ -1,6 +1,9 @@
-// Real Web3 Wallet Providers Integration
+// Real Web3 Wallet Providers Integration with Smart Contract Support
 
 import type { WalletType, ChainType, ConnectedWallet } from "./types"
+import { ethers } from "ethers"
+import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js"
+import { getChainId, getChainFromId, switchNetwork, CHAIN_CONFIGS } from "./chain-config"
 
 // Check if wallet is installed
 export function isWalletInstalled(type: WalletType): boolean {

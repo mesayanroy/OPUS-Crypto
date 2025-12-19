@@ -1,0 +1,279 @@
+{
+  "agents": [
+    {
+      "id": "agent_usdc_arbitrage",
+      "name": "USDC Arbitrage Bot",
+      "description": "Monitors price differences between APT/USDC on LiquidSwap and Econia",
+      "walletAddress": "0x1234567890abcdef",
+      "strategy": "price_arbitrage",
+      "dex": "liquidswap",
+      "tokenIn": "APT",
+      "tokenOut": "USDC",
+      "maxAmount": 5000000000000,
+      "slippage": 30,
+      "rules": [
+        {
+          "id": "rule_1",
+          "name": "Buy USDC when APT price dips",
+          "trigger": {
+            "type": "price_below",
+            "targetValue": 10.5,
+            "tolerance": 2
+          },
+          "action": {
+            "type": "swap",
+            "dex": "liquidswap",
+            "tokenIn": "APT",
+            "tokenOut": "USDC",
+            "amount": 1000000000000,
+            "slippage": 30,
+            "requiresApproval": true
+          },
+          "approvalSignature": "0xsignature...",
+          "maxExecutions": 5,
+          "executionCount": 0,
+          "expiryTime": 1703000000,
+          "isActive": true
+        },
+        {
+          "id": "rule_2",
+          "name": "Sell USDC when APT price spikes",
+          "trigger": {
+            "type": "price_above",
+            "targetValue": 14.5,
+            "tolerance": 2
+          },
+          "action": {
+            "type": "swap",
+            "dex": "econia",
+            "tokenIn": "USDC",
+            "tokenOut": "APT",
+            "amount": 10000000,
+            "slippage": 50,
+            "requiresApproval": true
+          },
+          "approvalSignature": "0xsignature...",
+          "maxExecutions": 5,
+          "executionCount": 0,
+          "expiryTime": 1703000000,
+          "isActive": true
+        }
+      ],
+      "status": "idle",
+      "performance": {
+        "totalExecutions": 0,
+        "successRate": 0,
+        "totalPnL": 0,
+        "roi": 0,
+        "wins": 0,
+        "losses": 0
+      },
+      "limits": {
+        "maxTradesPerDay": 20,
+        "maxPositionSize": 0.5,
+        "minTradeAmount": 1000000000000,
+        "maxSlippage": 100
+      },
+      "createdAt": 1702900000
+    },
+    {
+      "id": "agent_volume_tracker",
+      "name": "Volume Spike Detector",
+      "description": "Executes when trading volume exceeds threshold",
+      "walletAddress": "0x1234567890abcdef",
+      "strategy": "volume_based",
+      "dex": "econia",
+      "tokenIn": "APT",
+      "tokenOut": "WETH",
+      "maxAmount": 2000000000000,
+      "slippage": 50,
+      "rules": [
+        {
+          "id": "rule_3",
+          "name": "Trade on volume spike",
+          "trigger": {
+            "type": "volume_above",
+            "targetValue": 100000000000000,
+            "tolerance": 0
+          },
+          "action": {
+            "type": "swap",
+            "dex": "econia",
+            "tokenIn": "APT",
+            "tokenOut": "WETH",
+            "amount": 1000000000000,
+            "slippage": 50,
+            "requiresApproval": true
+          },
+          "approvalSignature": "0xsignature...",
+          "maxExecutions": 10,
+          "executionCount": 0,
+          "expiryTime": 1703100000,
+          "isActive": true
+        }
+      ],
+      "status": "running",
+      "performance": {
+        "totalExecutions": 3,
+        "successRate": 66.67,
+        "totalPnL": 250000000,
+        "roi": 2.5,
+        "wins": 2,
+        "losses": 1
+      },
+      "limits": {
+        "maxTradesPerDay": 30,
+        "maxPositionSize": 0.3,
+        "minTradeAmount": 500000000000,
+        "maxSlippage": 100
+      },
+      "createdAt": 1702850000
+    },
+    {
+      "id": "agent_time_based",
+      "name": "Time-Based Dollar Cost Averaging",
+      "description": "Buys fixed amount of USDC every hour",
+      "walletAddress": "0x1234567890abcdef",
+      "strategy": "dca",
+      "dex": "panora",
+      "tokenIn": "APT",
+      "tokenOut": "USDC",
+      "maxAmount": 500000000000,
+      "slippage": 20,
+      "rules": [
+        {
+          "id": "rule_4",
+          "name": "Hourly DCA purchase",
+          "trigger": {
+            "type": "time_interval",
+            "targetValue": 3600,
+            "tolerance": 0
+          },
+          "action": {
+            "type": "swap",
+            "dex": "panora",
+            "tokenIn": "APT",
+            "tokenOut": "USDC",
+            "amount": 500000000000,
+            "slippage": 20,
+            "requiresApproval": true
+          },
+          "approvalSignature": "0xsignature...",
+          "maxExecutions": 100,
+          "executionCount": 12,
+          "expiryTime": 1704000000,
+          "isActive": true
+        }
+      ],
+      "status": "running",
+      "performance": {
+        "totalExecutions": 12,
+        "successRate": 100,
+        "totalPnL": 150000000,
+        "roi": 2.5,
+        "wins": 12,
+        "losses": 0
+      },
+      "limits": {
+        "maxTradesPerDay": 24,
+        "maxPositionSize": 0.2,
+        "minTradeAmount": 500000000000,
+        "maxSlippage": 50
+      },
+      "createdAt": 1702700000
+    }
+  ],
+  "mcp_server_config": {
+    "port": 3001,
+    "hostname": "localhost",
+    "log_level": "info",
+    "heartbeat_interval": 30000,
+    "max_concurrent_rules": 10,
+    "execution_timeout": 30000,
+    "database": {
+      "type": "memory",
+      "persistence": "local_storage"
+    }
+  },
+  "wallet_config": {
+    "network": "mainnet",
+    "rpc_endpoint": "https://fullnode.mainnet.aptoslabs.com/v1",
+    "indexer_endpoint": "https://indexer.mainnet.aptoslabs.com/graphql",
+    "supported_wallets": [
+      "petra",
+      "martian",
+      "pontem",
+      "hippo"
+    ]
+  },
+  "dex_configs": {
+    "liquidswap": {
+      "address": "0xc7efb4076dbe143cbcd98cfaaa929ecfc8f299203dfff63b95ccb6bfe19850fa5",
+      "module": "scripts_v2",
+      "fee_tier": 0.003
+    },
+    "econia": {
+      "address": "0xc0deb00c405f84c85dc13442e305df75d42919ea27dcee60814ab2f8b6fb90fa",
+      "module": "user",
+      "fee_tier": 0.001
+    },
+    "panora": {
+      "address": "0x61d2c22a6cb7831bee0f48363674619d7e1372006cb359cd5e1f00567c64eaae",
+      "module": "swap",
+      "fee_tier": 0.002
+    }
+  },
+  "token_registry": {
+    "APT": {
+      "symbol": "APT",
+      "address": "0x1::aptos_coin::AptosCoin",
+      "decimals": 8,
+      "coingecko_id": "aptos"
+    },
+    "USDC": {
+      "symbol": "USDC",
+      "address": "0x5e4a221b811c61df06f2dc47b92e51de37213eb6a8460b53875cb290217e2e81::usdc::USDC",
+      "decimals": 6,
+      "coingecko_id": "usd-coin"
+    },
+    "USDT": {
+      "symbol": "USDT",
+      "address": "0x7d7e436f0b921221386289490fae4842d4d87d38540f5c5ecfb996f502ccead5::usdt::USDT",
+      "decimals": 6,
+      "coingecko_id": "tether"
+    },
+    "WETH": {
+      "symbol": "WETH",
+      "address": "0xf22bede237a07e121b56d91a491eb7713f289541aaf65c9ac9c249b3236b99622::coin::T",
+      "decimals": 8,
+      "coingecko_id": "ethereum"
+    }
+  },
+  "security": {
+    "require_wallet_signature": true,
+    "max_approval_amount": 1000000000000,
+    "approval_expiry_duration": 3600,
+    "require_manual_approval": false,
+    "whitelist_dexes": [
+      "liquidswap",
+      "econia",
+      "panora"
+    ],
+    "blacklist_tokens": []
+  },
+  "monitoring": {
+    "enabled": true,
+    "check_interval": 5000,
+    "log_executions": true,
+    "alert_on_failure": true,
+    "alert_email": null,
+    "alert_webhook": null
+  },
+  "advanced": {
+    "enable_copy_trading": false,
+    "enable_leverage": false,
+    "enable_margin": false,
+    "ai_model": "claude-3-5-sonnet-20241022",
+    "ai_analysis_enabled": true
+  }
+}

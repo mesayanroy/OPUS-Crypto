@@ -1,3 +1,5 @@
+"use client"
+
 import { HeroSection } from "@/components/hero-section"
 import { DashboardPreview } from "@/components/dashboard-preview"
 import { SocialProof } from "@/components/social-proof"
