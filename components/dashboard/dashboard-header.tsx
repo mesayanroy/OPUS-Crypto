@@ -1,24 +1,18 @@
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Wallet, ChevronDown, Zap } from "lucide-react"
+import { useWeb3 } from "@/lib/web3/context"
 
 export function DashboardHeader() {
-  const [isConnected, setIsConnected] = useState(false)
-  const [isConnecting, setIsConnecting] = useState(false)
-  const [walletAddress, setWalletAddress] = useState("")
+  const { wallet, isConnected, isConnecting, setShowWalletModal, disconnectWallet } = useWeb3()
 
-  const handleConnect = async () => {
-    setIsConnecting(true)
-    // Placeholder for wallet connection
-    await connectWallet()
-    setIsConnecting(false)
+  const handleConnect = () => {
+    setShowWalletModal(true)
   }
 
   const handleDisconnect = () => {
-    setIsConnected(false)
-    setWalletAddress("")
+    disconnectWallet()
   }
 
   return (
@@ -52,12 +46,12 @@ export function DashboardHeader() {
         </nav>
 
         {/* Wallet Connect */}
-        {isConnected ? (
+        {isConnected && wallet ? (
           <div className="flex items-center gap-2">
             <div className="px-4 py-2 rounded-full bg-primary/10 border border-primary/20 flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-foreground text-sm font-medium">
-                {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                {wallet.address.slice(0, 6)}...{wallet.address.slice(-4)}
               </span>
             </div>
             <Button
@@ -91,18 +85,4 @@ export function DashboardHeader() {
       </div>
     </header>
   )
-}
-
-// Placeholder wallet connection function
-async function connectWallet(): Promise<{ address: string } | null> {
-  // Simulate connection delay
-  await new Promise((resolve) => setTimeout(resolve, 1500))
-
-  // Placeholder: In production, integrate with MetaMask/WalletConnect
-  // if (typeof window !== 'undefined' && window.ethereum) {
-  //   const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
-  //   return { address: accounts[0] }
-  // }
-
-  return null
 }
