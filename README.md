@@ -530,4 +530,71 @@ For issues and questions:
 
 ---
 
-Built with ❤️ using Next.js, TypeScript, and AI-powered trading algorithms.
+
+## ✨ Key Features
+
+### 🔐 Wallet-First Authentication
+- Connect via MetaMask, WalletConnect, or Coinbase Wallet
+- No email, no password — wallet is identity
+- Chain-aware connection (Aptos supported)
+
+### 📊 Real-Time Dashboard
+- Wallet balance & token holdings
+- Recent transactions
+- Active trades & monitoring
+- AI agents created by the user
+
+### 🤖 Custom AI Trading Agents
+- Build AI trading agents step-by-step
+- Define:
+  - Token
+  - DEX (Liquidswap, Econia)
+  - Buy/Sell rules
+  - Time or price-based execution
+- Agents run **locally on the user’s machine**
+
+### 🧠 Local Execution, Maximum Security
+- No private keys leave the user system
+- Trades are signed directly from the wallet
+- Platform never custodies funds
+
+### 🔁 Copy Trading (Opt-In)
+- Mirror strategies from other wallets
+- Requires explicit smart contract approval
+- Configurable limits & permissions
+
+### 🔏 Smart Contract Enforced Safety
+- Every action requires wallet signature
+- Supports limited approvals
+- Transparent, auditable Move contracts
+
+---
+
+## 🧩 Supported DEXs
+- Liquidswap
+- Econia
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|-----|-----------|
+| Frontend | Next.js, TypeScript, TailwindCSS |
+| Wallets | WalletConnect v2, MetaMask |
+| Blockchain | Aptos |
+| Smart Contracts | Move |
+| AI Agents | Python (local runtime) |
+| CLI | Node.js / Python |
+| Indexing | Aptos Indexer |
+
+---
+
+## 🚦 Quick Start
+
+```bash
+git clone https://github.com/your-org/ai-web3-trading
+cd ai-web3-trading
+npm install
+npm run dev
+
