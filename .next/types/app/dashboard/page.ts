@@ -1,4 +1,4 @@
-// File: D:\OPUS-ai-crypto-Trade--1\app\dashboard\page.tsx
+// File: /home/runner/work/OPUS-Crypto/OPUS-Crypto/app/dashboard/page.tsx
 import * as entry from '../../../../app/dashboard/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
