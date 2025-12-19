@@ -5,7 +5,7 @@ Create your own AI Agents that will do the trade and maintain your trading portf
 <img width="1554" height="902" alt="image" src="https://github.com/user-attachments/assets/2dc071a7-c13b-4d9b-b10b-46764f69adbf" />
 
 
-## 🎯 Overview
+##  Overview
 
 OPUS AI Crypto Trading Platform is a comprehensive Web3 application that combines AI-powered market analysis with seamless multi-chain trading capabilities. The platform features:
 
@@ -17,7 +17,7 @@ OPUS AI Crypto Trading Platform is a comprehensive Web3 application that combine
 - **Portfolio Tracking** - Real-time portfolio monitoring and analytics
 - **EIP-712 Signatures** - Secure transaction signing with typed data
 
-## 🚀 Features
+##  Features
 
 ### AI-Powered Features
 - **Market Scanning**: AI algorithms analyze market conditions to plan, identify promising tokens
