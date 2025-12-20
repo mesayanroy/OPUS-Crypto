@@ -37,7 +37,7 @@ OPUS AI Crypto Trading Platform is a comprehensive Web3 application that combine
 - **Portfolio Management**: Track holdings, P&L, and performance metrics
 - **Real-time Updates**: Live price updates and market data
 
-## 📋 Prerequisites
+##  Prerequisites
 
 Before you begin, ensure you have the following installed:
 
