@@ -8,7 +8,7 @@
 
 .messageBox {
   position: absolute;
-  border-radius: 8px; /* Adjusted for consistency with shadcn/ui radius */
+  border-radius: 8px; /* Adjusted for consistency with shadcn/ui radius. */
   overflow: hidden;
   padding: 9.49px;
   box-sizing: border-box;
