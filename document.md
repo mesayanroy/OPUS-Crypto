@@ -1,4 +1,4 @@
-# OPUS – Make your own trading agents deploy it on your system and start ur AI - crypto trading journey.
+# OPUS – Make your own trading agents deploy it on your system and start ur AI - crypto trading journey
 ## Architecture & Documentation 
 
 **Version:** 1.0.0  
